@@ -88,7 +88,7 @@ const TransactionCard = ({
       transform: [{ translateX: transX.value }],
 
       display: display.value,
-      backgroundColor: theme
+      backgroundColor: theme === "Light"
         ? interpolateColor(
             transX.value,
             [0, THRESH_HOLD],

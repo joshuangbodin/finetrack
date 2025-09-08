@@ -4,7 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import React, { useEffect } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import Animated, {
-  FadeInUp,
+  FadeInDown,
   FadeOutUp,
   useAnimatedStyle,
   useSharedValue,
@@ -26,39 +26,55 @@ export const setToastMessage = (
 };
 
 const ToastMessage = ({ message, status = false }: props) => {
+  const top = useSharedValue(-vh(12));
+
   useEffect(() => {
     if (!message) {
-      top.value = -vh(12);
+      top.value = withTiming(-vh(12));
     } else {
-      top.value = 0;
+      top.value = withTiming(vh(3)); // slide down slightly below top
     }
   }, [message]);
-  const top = useSharedValue(0);
 
-  const AnimatedStyles = useAnimatedStyle(() => {
-    return {
-      top: withTiming(top.value),
-    };
-  });
+  const AnimatedStyles = useAnimatedStyle(() => ({
+    top: top.value,
+  }));
+
+  const icon = status
+    ? { name: "check-circle", color: "seagreen" }
+    : { name: "times-circle", color: "crimson" };
+
   return (
     <Animated.View
-      entering={FadeInUp}
+      entering={FadeInDown}
       exiting={FadeOutUp}
       style={[styles.container, AnimatedStyles]}
     >
       <View style={styles.inner}>
-        <View style={styles.alert}>
-          <FontAwesome size={vh(2)} color={lightTheme.white} name="warning" />
+        {/* Left icon */}
+        <FontAwesome
+          size={vh(3)}
+          color={icon.color}
+          name={icon.name as any}
+          style={{ marginRight: vw(3) }}
+        />
+
+        {/* Message text */}
+        <View style={{ flex: 1 }}>
+          <CustomText size={vh(2)} color={lightTheme.Black}  style={{fontWeight:"600"}}>
+            {status? "Success" : "Failed"}
+          </CustomText>
+          <CustomText size={vh(1.7)} color={lightTheme.gray3} numberOfLines={2}>
+            {message}
+          </CustomText>
         </View>
-        <CustomText
-          style={{ marginLeft: vw(3) }}
-          color={lightTheme.Black}
-          size={vh(2.2)}
+
+        {/* Close button */}
+        <Pressable
+          onPress={() => (top.value = withTiming(-vh(12)))}
+          style={styles.accent}
         >
-          {message}
-        </CustomText>
-        <Pressable onPress={() => {top.value = -vh(12)}} style={styles.accent}>
-          <FontAwesome color={lightTheme.gray3} size={vh(3)} name="close" />
+          <FontAwesome color={lightTheme.gray3} size={vh(2.5)} name="close" />
         </Pressable>
       </View>
     </Animated.View>
@@ -69,42 +85,34 @@ export default ToastMessage;
 
 const styles = StyleSheet.create({
   container: {
-    position: "fixed",
-    top: 0,
+    position: "absolute",
     left: 0,
-    height: vh(10),
-    display: "none",
+    right: 0,
     zIndex: 99,
-    width: vw(100),
-    justifyContent: "center",
     alignItems: "center",
-  },
-  inner: {
-    width: "90%",
-    padding: vh(1),
-    backgroundColor: lightTheme.gray1,
-    height: vh(7),
-    alignItems: "center",
-    flexDirection: "row",
-    borderRadius: vw(3),
-    borderWidth: 1,
-    borderColor: lightTheme.gray2,
-  },
-  accent: {
-    height: "95%",
-    borderColor: lightTheme.gray2,
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: "auto",
-    borderRadius: vw(3),
+    paddingHorizontal: vw(4),
   },
 
-  alert: {
-    width: vh(4),
-    height: vh(4),
-    backgroundColor: "darkred",
+  inner: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    minHeight: vh(8),
+    paddingHorizontal: vw(4),
+    paddingVertical: vh(1.5),
+    borderRadius: vw(4),
+    backgroundColor: "rgba(255,255,255,0.95)", // iOS-style frosted look
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 3,
+  },
+
+  accent: {
+    padding: vw(2),
+    marginLeft: vw(2),
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 1000,
   },
 });

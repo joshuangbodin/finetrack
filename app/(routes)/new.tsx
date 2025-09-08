@@ -82,7 +82,7 @@ const newEntry = () => {
   };
   const theme = useTheme().theme;
   return (
-     <ScreenWrapper style={styles.container}>
+     <ScreenWrapper>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -159,7 +159,7 @@ export default newEntry;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: lightTheme.white,
+    //backgroundColor: lightTheme.white,
     paddingHorizontal: vw(3),
   },
   scrollContainer: {

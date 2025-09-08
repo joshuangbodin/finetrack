@@ -9,12 +9,14 @@ interface props {
   style?: any;
   size?: number;
   color?: string;
+  numberOfLines?: number;
 }
 
-const CustomText = ({ children, style, size, color }: props) => {
+const CustomText = ({ children, style, size, color , numberOfLines=0 }: props) => {
   const { theme } = useTheme();
   return (
     <Text
+    numberOfLines={numberOfLines}
       style={[
         returnThemeStyles(theme, styles.Text, styles.TextDark),
         style,

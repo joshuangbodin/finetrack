@@ -3,6 +3,7 @@ import ThemeProvider from "@/app_storage/App State/Theme";
 import TransactionsProvider from "@/app_storage/App State/TransactionsProvider";
 import { Stack } from "expo-router";
 import React from "react";
+import { Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const _layout = () => {
@@ -14,14 +15,14 @@ const _layout = () => {
             <Stack
               screenOptions={{
                 headerShown: false,
-                // statusBarStyle: "auto",
-                 animation: "slide_from_right",
+                animation: "slide_from_right",
               }}
             >
               <Stack.Screen
-                // options={{
-                //   statusBarHidden: true,
-                // }}
+                options={{
+                  //  headerShown: false,
+                  statusBarHidden: Platform.OS === "android",
+                }}
                 name="index"
               ></Stack.Screen>
               <Stack.Screen name="(routes)/onboarding"></Stack.Screen>

@@ -21,7 +21,7 @@ const _layout = () => {
         tabBarStyle: {
           paddingTop: vh(1.5),
           borderWidth: 0,
-          height: Platform.OS == "ios"? vh(10): vh(13),
+          height: Platform.OS == "ios"? vh(10): vh(12),
           backgroundColor: returnThemeStyles(
             theme,
             lightTheme.white,

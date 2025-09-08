@@ -83,9 +83,9 @@ const home = () => {
         <View
           style={{
             marginTop: vh(2),
-            borderBottomWidth: vh(2.5),
+            borderBottomWidth: vh(1.5),
             paddingBottom: vh(4),
-            borderColor: returnThemeStyles(useTheme().theme ,lightTheme.gray1 , DarkTheme.gray3),
+            borderColor: returnThemeStyles(useTheme().theme ,lightTheme.gray1 , DarkTheme.Black),
           }}
         >
           <CustomText size={vh(2)} color={lightTheme.gray3}>
