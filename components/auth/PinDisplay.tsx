@@ -50,7 +50,7 @@ const PinDigit = ({ digitValue, active }: PinDigitProps) => {
           borderColor: returnThemeStyles(
             theme,
             lightTheme.primary,
-            DarkTheme.primary
+            DarkTheme.white
           ),
         },
         // !visible && digitValue && { backgroundColor: lightTheme.primary },

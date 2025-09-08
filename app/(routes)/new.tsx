@@ -106,7 +106,7 @@ const newEntry = () => {
           </View>
 
           {/* form */}
-          <View>
+          <View style={{flex:1}}>
             <TextInput
               value={name}
               onChangeText={setName}
@@ -127,7 +127,7 @@ const newEntry = () => {
               onChangeText={setDescription}
               style={[
                 returnThemeStyles(theme, styles.input, styles.inputDark),
-                { height: vh(12), paddingVertical: vh(2) },
+                { height: vh(12), paddingTop: vh(2) , marginBottom:vh(4), },
               ]}
               multiline
               placeholderTextColor={lightTheme.gray3}
@@ -160,7 +160,7 @@ export default newEntry;
 const styles = StyleSheet.create({
   container: {
     //backgroundColor: lightTheme.white,
-    paddingHorizontal: vw(3),
+   // paddingHorizontal: vw(3),
   },
   scrollContainer: {
     flexGrow: 1,
@@ -175,6 +175,8 @@ const styles = StyleSheet.create({
   },
   input: {
     height: vh(7),
+    width:vw(92),
+  alignSelf:"center",
     backgroundColor: lightTheme.gray1,
     borderColor: lightTheme.gray2,
     borderWidth: 1,
@@ -185,6 +187,8 @@ const styles = StyleSheet.create({
   },
   inputDark: {
     height: vh(7),
+    width:vw(92),
+    alignSelf:"center",
     backgroundColor: DarkTheme.gray3,
     borderColor: lightTheme.gray3,
     borderWidth: 1,

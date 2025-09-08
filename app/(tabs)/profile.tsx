@@ -6,7 +6,7 @@ import UserInfoCard from "@/components/profile/UserInfoCard";
 import { lightTheme } from "@/constants/Colors";
 import { vh, vw } from "@/helpers/responsivesizes";
 import React, { useContext } from "react";
-import { Pressable, ScrollView, StyleSheet, Switch, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Switch, View } from "react-native";
 
 const profile = () => {
   const { user } = useContext<contextType | any>(AuthContext);
@@ -37,11 +37,17 @@ const profile = () => {
       >
         App Options
       </CustomText>
-      <View>
-        <TouchableOpacity style={styles.list} onPress={ToggleTheme}>
-          <CustomText size={vh(2)}>Dark Mode ({JSON.stringify(theme)})</CustomText>
-          <Switch style={{height: vh(3) , width: vw(2)}} value={theme == "Dark"} />
-        </TouchableOpacity>
+      <View style={styles.listContainer}>
+        <View style={styles.list}>
+          <CustomText size={vh(2)}>
+            Dark Mode
+          </CustomText>
+          <View 
+          //style={{ transform: [{ scale: 1.2 }] }}
+          >
+            <Switch onValueChange={ToggleTheme} value={theme === "Dark"} />
+          </View>
+        </View>
       </View>
     </ScreenWrapper>
   );
@@ -52,10 +58,12 @@ export default profile;
 const styles = StyleSheet.create({
   top: { marginVertical: vh(1) },
   list: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: vw(80),
-    justifyContent: "space-between",
-    paddingVertical: vh(4),
+    paddingVertical: vh(2),
+    flexDirection:"row",
+    justifyContent:"space-between",
+    alignItems:"center"
+  },
+  listContainer: {
+    //width: vw(80),
   },
 });

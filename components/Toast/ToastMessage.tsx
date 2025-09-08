@@ -11,6 +11,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import CustomText from "../General/ui/CustomText";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export interface props {
   message: string;
@@ -26,13 +27,14 @@ export const setToastMessage = (
 };
 
 const ToastMessage = ({ message, status = false }: props) => {
-  const top = useSharedValue(-vh(12));
+  const safe = useSafeAreaInsets().top
+  const top = useSharedValue(-vh(14));
 
   useEffect(() => {
     if (!message) {
-      top.value = withTiming(-vh(12));
+      top.value = withTiming(-vh(14));
     } else {
-      top.value = withTiming(vh(3)); // slide down slightly below top
+      top.value = withTiming(safe); // slide down slightly below top
     }
   }, [message]);
 
@@ -71,7 +73,7 @@ const ToastMessage = ({ message, status = false }: props) => {
 
         {/* Close button */}
         <Pressable
-          onPress={() => (top.value = withTiming(-vh(12)))}
+          onPress={() => (top.value = withTiming(-vh(14)))}
           style={styles.accent}
         >
           <FontAwesome color={lightTheme.gray3} size={vh(2.5)} name="close" />

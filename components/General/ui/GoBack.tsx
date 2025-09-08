@@ -19,7 +19,7 @@ const GoBack = ({ pathname }: props) => {
       }}
       style={returnThemeStyles(theme, styles.backbutton, styles.backbuttonDark)}
     >
-      <Feather size={vh(4)} name="chevron-left" />
+      <Feather color={returnThemeStyles(theme, lightTheme.Black, DarkTheme.white)} size={vh(4)} name="chevron-left" />
     </Pressable>
   );
 };
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     height: vh(5),
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: lightTheme.gray1,
+    //backgroundColor: lightTheme.gray1,
     borderRadius: vh(1),
   },
   backbuttonDark: {
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     height: vh(5),
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: DarkTheme.gray3,
+    //backgroundColor: DarkTheme.gray3,
     borderRadius: vh(1),
   },
 });

@@ -15,13 +15,14 @@ const _layout = () => {
             <Stack
               screenOptions={{
                 headerShown: false,
-                animation: "slide_from_right",
+                //animation: "none",
+                statusBarHidden: Platform.OS === "android",
               }}
             >
               <Stack.Screen
                 options={{
                   //  headerShown: false,
-                  statusBarHidden: Platform.OS === "android",
+                  
                 }}
                 name="index"
               ></Stack.Screen>

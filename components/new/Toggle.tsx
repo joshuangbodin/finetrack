@@ -46,10 +46,10 @@ const Toggle = ({ leftClick, rightClick }: props) => {
       ></Animated.View>
 
       <Pressable onPress={HandleLeftClick} style={styles.pressable}>
-        <CustomText size={vh(2)}>Income</CustomText>
+        <CustomText>Income</CustomText>
       </Pressable>
       <Pressable onPress={HandleRightClick} style={styles.pressable}>
-        <CustomText size={vh(2)}>Expense</CustomText>
+        <CustomText>Expense</CustomText>
       </Pressable>
     </View>
   );

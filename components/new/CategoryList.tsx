@@ -32,7 +32,7 @@ const CategoryList = ({ data, active, setCategory }: props) => {
           ]}
         >
           {category.logo()}
-          <CustomText size={vh(2)}>{category.name}</CustomText>
+          <CustomText>{category.name}</CustomText>
         </Pressable>
       ))}
     </View>

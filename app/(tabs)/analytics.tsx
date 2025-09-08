@@ -1,3 +1,4 @@
+import { useTheme } from "@/app_storage/App State/Theme";
 import {
   TransactionContext,
   TransactioncontextType,
@@ -7,17 +8,18 @@ import DonutChart from "@/components/analytics/DonutChart";
 import StatisticGrid from "@/components/analytics/StatisticGrid";
 import ScreenWrapper from "@/components/General/ScreenWrapper";
 import CustomText from "@/components/General/ui/CustomText";
-import { lightTheme } from "@/constants/Colors";
+import { DarkTheme, lightTheme } from "@/constants/Colors";
 import { vh } from "@/helpers/responsivesizes";
 import React, { useContext } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 const analytics = () => {
   const { list } = useContext<TransactioncontextType | any>(TransactionContext);
+  const theme = useTheme().theme
   return (
     <ScrollView
       contentContainerStyle={styles.scrollcontainer}
-      style={{ flex: 1 , backgroundColor:lightTheme.white}}
+      style={{ flex: 1 , backgroundColor:theme=="Light" ? lightTheme.white : DarkTheme.Black}}
       showsVerticalScrollIndicator={false}
     >
       <ScreenWrapper>
