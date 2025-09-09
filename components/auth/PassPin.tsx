@@ -40,7 +40,7 @@ const PassPin = ({ prompt, HandleSubmit }: props) => {
       <View>
         <CustomText
           style={styles.prompt}
-          color={returnThemeStyles( theme,lightTheme.primary , DarkTheme.primary)}
+          color={returnThemeStyles( theme,lightTheme.primary , DarkTheme.white)}
           size={vh(2.4)}
         >
           {prompt}

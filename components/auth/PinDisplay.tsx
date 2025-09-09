@@ -60,13 +60,13 @@ const PinDigit = ({ digitValue, active }: PinDigitProps) => {
         color={returnThemeStyles(
             theme,
             lightTheme.primary,
-            DarkTheme.primary
+            DarkTheme.white
           )}
         size={!visible && digitValue ? vh(5) : vh(3)}
       >
         {!visible && digitValue ? "*" : digitValue}
       </CustomText>
-      {active && <View style={styles.cursor} />}
+      {active && <View style={[styles.cursor , {backgroundColor: theme=="Light" ? lightTheme.primary : DarkTheme.Secondary}]} />}
     </View>
   );
 };

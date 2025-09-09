@@ -52,23 +52,23 @@ const login = () => {
         />
         <View style={styles.text}>
           <CustomText
-            size={vh(2)}
+            
             color={returnThemeStyles(
               theme,
               lightTheme.primary,
-              DarkTheme.primary
+              DarkTheme.white
             )}
           >
             {`Forgot Pass-Pin?`}
           </CustomText>
           <Pressable onPress={()=> router.push('/(routes)/reset')}>
             <CustomText
-              size={vh(2)}
+              
               style={{ fontWeight: "500" }}
               color={returnThemeStyles(
                 theme,
                 lightTheme.primary,
-                DarkTheme.primary
+                DarkTheme.white
               )}
             >
               {`Reset`}

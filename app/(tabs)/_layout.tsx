@@ -16,7 +16,7 @@ const _layout = () => {
         tabBarActiveTintColor: returnThemeStyles(
             theme,
             lightTheme.primary,
-            DarkTheme.primary
+            DarkTheme.Secondary
           ),
         tabBarStyle: {
           paddingTop: vh(1.5),
