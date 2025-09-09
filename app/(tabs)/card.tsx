@@ -29,7 +29,7 @@ const card = () => {
         </CustomText>
         <Image
           resizeMode="contain"
-          source={require("@/assets/images/card/comingSoon.svg")}
+          source={require("@/assets/images/card/cards.png")}
           style={styles.image}
         />
         <CustomText

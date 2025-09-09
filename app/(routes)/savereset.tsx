@@ -1,5 +1,6 @@
 import { AuthContext } from "@/app_storage/App State/AuthProvider";
 import { returnThemeStyles, useTheme } from "@/app_storage/App State/Theme";
+import { saveResetInfo } from "@/app_storage/user/user";
 import ScreenWrapper from "@/components/General/ScreenWrapper";
 import CustomButton from "@/components/General/ui/CustomButton";
 import CustomText from "@/components/General/ui/CustomText";
@@ -9,7 +10,6 @@ import { vh, vw } from "@/helpers/responsivesizes";
 import { router } from "expo-router";
 import React, { useContext, useState } from "react";
 import {
-  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -17,17 +17,22 @@ import {
   TextInput,
   View,
 } from "react-native";
-const AuthImage = require("@/assets/images/Auth pages/auth1.png");
+//const AuthImage = require("@/assets/images/Auth pages/auth1.png");
 
-const signin = () => {
+const savereset = () => {
   const { user, setUser } = useContext<any>(AuthContext);
-  const [name, setName] = useState("");
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
   const { theme } = useTheme();
 
-  const HandleSave = () => {
-    if (name) {
-      setUser({ ...user, name });
-      router.push("/(routes)/signin_auth");
+  const HandleSave = async () => {
+    if (answer && question) {
+      const resetInfo = { answer, question };
+      const { success, data } = await saveResetInfo(resetInfo);
+      if (success) {
+        setUser({ ...user, reset: resetInfo });
+        router.push("/(routes)/done");
+      }
     } else {
     }
   };
@@ -43,14 +48,13 @@ const signin = () => {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.top}>
-            <GoBack pathname={"/(routes)/onboarding"} />
+            <GoBack/>
           </View>
 
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.form}
           >
-            <Image style={styles.image} source={AuthImage} />
             <View style={styles.textview}>
               <CustomText
                 style={{ fontWeight: "500" }}
@@ -61,7 +65,7 @@ const signin = () => {
                 )}
                 size={vh(4)}
               >
-                Please Tell
+                Set Pass-Pin
               </CustomText>
               <CustomText
                 style={{ fontWeight: "500" }}
@@ -72,17 +76,31 @@ const signin = () => {
                 )}
                 size={vh(4)}
               >
-                Us Your Name
+                Reset Question
               </CustomText>
             </View>
 
-            <TextInput
-              style={returnThemeStyles(theme, styles.input, styles.inputDark)}
-              value={name}
-              onChangeText={(value) => setName(value)}
-              placeholderTextColor={lightTheme.gray3}
-              placeholder="e.g John"
-            />
+            <View style={{ width: "100%", marginTop: vh(4) }}>
+              <CustomText>Enter a question only you can answer</CustomText>
+              <TextInput
+                style={returnThemeStyles(theme, styles.input, styles.inputDark)}
+                value={question}
+                onChangeText={(value) => setQuestion(value)}
+                placeholderTextColor={lightTheme.gray3}
+                placeholder="e.g What is my favorite soccer star"
+              />
+            </View>
+
+            <View style={{ width: "100%", marginBottom: vh(2) }}>
+              <CustomText>Provide The answer to the above question</CustomText>
+              <TextInput
+                style={returnThemeStyles(theme, styles.input, styles.inputDark)}
+                value={answer}
+                onChangeText={(value) => setAnswer(value)}
+                placeholderTextColor={lightTheme.gray3}
+                placeholder="e.g Messi"
+              />
+            </View>
             <CustomButton onPress={HandleSave} text="Save" />
           </KeyboardAvoidingView>
         </ScrollView>
@@ -91,7 +109,7 @@ const signin = () => {
   );
 };
 
-export default signin;
+export default savereset;
 
 const styles = StyleSheet.create({
   image: {
@@ -100,7 +118,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
-   // backgroundColor: lightTheme.white,
+    // backgroundColor: lightTheme.white,
     paddingHorizontal: vw(3),
   },
   scrollContainer: {

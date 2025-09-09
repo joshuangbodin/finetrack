@@ -61,7 +61,7 @@ const login = () => {
           >
             {`Forgot Pass-Pin?`}
           </CustomText>
-          <Pressable>
+          <Pressable onPress={()=> router.push('/(routes)/reset')}>
             <CustomText
               size={vh(2)}
               style={{ fontWeight: "500" }}

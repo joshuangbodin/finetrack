@@ -6,6 +6,12 @@ export interface user{
     dateCreated: any
     avatar?: number
     title?: string
+    reset?: resetProps
+}
+
+export interface resetProps{
+    question: string
+    answer: string
 }
 
 export interface transaction{

@@ -45,7 +45,7 @@ const onboarding = () => {
         </CustomText>
 
         <CustomButton
-          onPress={() => router.push("/(routes)/login")}
+          onPress={() => router.push("/(routes)/signin")}
           style={{}}
           text="Get Started"
         />

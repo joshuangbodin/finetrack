@@ -32,6 +32,8 @@ const index = () => {
     setTimeout(checkUser, 3000);
   }, []);
 
+ 
+
   return (
     <ScreenWrapper style={styles.container}>
       <Animated.Image entering={FadeIn} style={styles.image} source={Logo} />

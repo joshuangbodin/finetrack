@@ -1,4 +1,4 @@
-import { user } from "@/types/app";
+import { resetProps, user } from "@/types/app";
 //import RNSecureStorage, {ACCESSIBLE} from 'rn-secure-storage';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -95,6 +95,30 @@ export const updateUserNameAndAvatar = async (name: string, avatar: number) => {
     const { success } = await storeUserData({ ...data, name, avatar });
 
     return { success: true, data: { ...data, name, avatar } };
+  } else {
+    return { success: true, data: "Encoutered an Error" };
+  }
+};
+
+export const saveResetInfo = async (info: resetProps) => {
+  const { data, success } = await retrieveAuthUserData();
+
+  if (success) {
+    const { success } = await storeUserData({ ...data, reset: info });
+
+    return { success: true, data: "Saved Successfully" };
+  } else {
+    return { success: true, data: "Encoutered an Error" };
+  }
+};
+
+export const loginWithReset = async (answer: string) => {
+  const { data, success } = await retrieveAuthUserData();
+
+  if (success) {
+    if (data.reset.answer.trim().toLowerCase() == answer.trim().toLowerCase()) {
+      return { success, data: "Authenticated" };
+    } else return { success: false, data: "Authentication failed" };
   } else {
     return { success: true, data: "Encoutered an Error" };
   }

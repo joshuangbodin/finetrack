@@ -1,35 +1,45 @@
 import AuthProvider from "@/app_storage/App State/AuthProvider";
-import ThemeProvider from "@/app_storage/App State/Theme";
+import ThemeProvider, { getTheme } from "@/app_storage/App State/Theme";
 import TransactionsProvider from "@/app_storage/App State/TransactionsProvider";
 import { Stack } from "expo-router";
-import React from "react";
-import { Platform } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Platform, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const _layout = () => {
+
+
   return (
     <GestureHandlerRootView>
       <AuthProvider>
         <TransactionsProvider>
           <ThemeProvider>
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                //animation: "none",
-                statusBarHidden: Platform.OS === "android",
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "#000",
               }}
             >
-              <Stack.Screen
-                options={{
-                  //  headerShown: false,
-                  
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                  animation: "slide_from_right",
+                  statusBarHidden: Platform.OS === "android",
                 }}
-                name="index"
-              ></Stack.Screen>
-              <Stack.Screen name="(routes)/onboarding"></Stack.Screen>
-              <Stack.Screen name="(routes)/signin"></Stack.Screen>
-              <Stack.Screen name="(tabs)"></Stack.Screen>
-            </Stack>
+              >
+                <Stack.Screen
+                  options={
+                    {
+                      //  headerShown: false,
+                    }
+                  }
+                  name="index"
+                ></Stack.Screen>
+                <Stack.Screen name="(routes)/onboarding"></Stack.Screen>
+                <Stack.Screen name="(routes)/signin"></Stack.Screen>
+                <Stack.Screen name="(tabs)"></Stack.Screen>
+              </Stack>
+            </View>
           </ThemeProvider>
         </TransactionsProvider>
       </AuthProvider>

@@ -1,5 +1,6 @@
 import { AuthContext } from "@/app_storage/App State/AuthProvider";
 import { returnThemeStyles, useTheme } from "@/app_storage/App State/Theme";
+import { loginWithReset } from "@/app_storage/user/user";
 import ScreenWrapper from "@/components/General/ScreenWrapper";
 import CustomButton from "@/components/General/ui/CustomButton";
 import CustomText from "@/components/General/ui/CustomText";
@@ -17,17 +18,19 @@ import {
   TextInput,
   View,
 } from "react-native";
-const AuthImage = require("@/assets/images/Auth pages/auth1.png");
+const AuthImage = require("@/assets/images/Auth pages/forgotpassword.png");
 
-const signin = () => {
+const reset = () => {
   const { user, setUser } = useContext<any>(AuthContext);
-  const [name, setName] = useState("");
+  const [answer, setAnswer] = useState("");
   const { theme } = useTheme();
 
-  const HandleSave = () => {
-    if (name) {
-      setUser({ ...user, name });
-      router.push("/(routes)/signin_auth");
+  const HandleSave = async () => {
+    if (answer) {
+      const { success } = await loginWithReset(answer);
+      if (success) {
+        router.replace("/(routes)/reset_auth");
+      }
     } else {
     }
   };
@@ -43,7 +46,7 @@ const signin = () => {
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.top}>
-            <GoBack pathname={"/(routes)/onboarding"} />
+            <GoBack />
           </View>
 
           <KeyboardAvoidingView
@@ -57,33 +60,39 @@ const signin = () => {
                 color={returnThemeStyles(
                   theme,
                   lightTheme.primary,
-                  DarkTheme.primary
+                  DarkTheme.white
                 )}
-                size={vh(4)}
+                size={vh(3)}
               >
-                Please Tell
+                Please Answer Pass-pin
               </CustomText>
               <CustomText
                 style={{ fontWeight: "500" }}
                 color={returnThemeStyles(
                   theme,
                   lightTheme.primary,
-                  DarkTheme.primary
+                  DarkTheme.white
                 )}
-                size={vh(4)}
+                size={vh(3)}
               >
-                Us Your Name
+                Reset Question
               </CustomText>
             </View>
 
+            {user && (
+              <CustomText style={{ marginTop: vh(4) }}>
+                {user?.reset?.question}
+              </CustomText>
+            )}
+
             <TextInput
               style={returnThemeStyles(theme, styles.input, styles.inputDark)}
-              value={name}
-              onChangeText={(value) => setName(value)}
+              value={answer}
+              onChangeText={(value) => setAnswer(value)}
               placeholderTextColor={lightTheme.gray3}
-              placeholder="e.g John"
+              placeholder="your answer goes here"
             />
-            <CustomButton onPress={HandleSave} text="Save" />
+            <CustomButton onPress={HandleSave} text="Submit" />
           </KeyboardAvoidingView>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -91,16 +100,16 @@ const signin = () => {
   );
 };
 
-export default signin;
+export default reset;
 
 const styles = StyleSheet.create({
   image: {
-    width: vw(65),
-    height: vw(70),
+    width: vw(55),
+    height: vw(60),
   },
 
   container: {
-   // backgroundColor: lightTheme.white,
+    //  backgroundColor: lightTheme.white,
     paddingHorizontal: vw(3),
   },
   scrollContainer: {

@@ -1,5 +1,4 @@
 import { AuthContext } from "@/app_storage/App State/AuthProvider";
-import { createTransactionList } from "@/app_storage/transactions/transaction";
 import { storeUserData } from "@/app_storage/user/user";
 import PassPin from "@/components/auth/PassPin";
 import ScreenWrapper from "@/components/General/ScreenWrapper";
@@ -12,7 +11,7 @@ import { router } from "expo-router";
 import React, { useContext, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-const signin_auth = () => {
+const reset_auth = () => {
   const [pin, setPin] = useState("");
   const { user, setUser } = useContext<any>(AuthContext);
   const [toast, setToast] = useState<props>({ message: "" });
@@ -28,8 +27,7 @@ const signin_auth = () => {
       const { success, data } = await storeUserData({ ...user, pin });
 
       console.log(data);
-      await createTransactionList()
-      if (success) router.push("/(routes)/savereset");
+      if (success) router.push("/(routes)/login");
     }
   };
 
@@ -38,11 +36,13 @@ const signin_auth = () => {
       <View style={styles.top}>
         <GoBack />
       </View>
-      <CustomText>Hi {user && user.name}</CustomText>
+      <CustomText style={{ textAlign: "center" }}>
+        Hi {user && user.name}
+      </CustomText>
       {!pin ? (
         <PassPin
           HandleSubmit={SaveFirstPin}
-          prompt="Please Enter a 4-digit Pin"
+          prompt="Reset Your 4-digit Pin"
         />
       ) : (
         <PassPin
@@ -54,7 +54,7 @@ const signin_auth = () => {
   );
 };
 
-export default signin_auth;
+export default reset_auth;
 
 const styles = StyleSheet.create({
   container: {
